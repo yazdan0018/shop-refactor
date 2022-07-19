@@ -1,7 +1,10 @@
 import React from 'react';
+import Layout from './components/layout/Layout';
 
-const App = () => {
-  return <div />;
-};
+const App = () => (
+  <Layout>
+    <></>
+  </Layout>
+);
 
 export default App;
