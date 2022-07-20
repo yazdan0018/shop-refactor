@@ -5,6 +5,7 @@ import Footer from './Footer';
 
 const AppContainer = ({ children }) => (
   <Box
+    zIndex={1}
     bg="white"
     position="fixed"
     top={LAYOUT_CONSTANTS.HEADER_HEIGHT}

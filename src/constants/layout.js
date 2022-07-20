@@ -1,3 +1,4 @@
 const HEADER_HEIGHT = '80px';
+const SIDEBAR_WIDTH = '200px';
 
-export { HEADER_HEIGHT };
+export { HEADER_HEIGHT, SIDEBAR_WIDTH };
