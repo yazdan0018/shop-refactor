@@ -1,15 +1,21 @@
 // @flow
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, useDisclosure } from '@chakra-ui/react';
 import { LAYOUT_CONSTANTS } from '../../../constants';
 import { AiFillAmazonCircle } from 'react-icons/ai';
 import NavLinks from './NavLinks';
 import HamburgerButton from './HamburgerButton';
 import HamburgerMenu from './HamburgerMenu';
+import { useLocation } from 'react-router-dom';
 
 const Header = () => {
-  const { isOpen, onToggle } = useDisclosure();
+  const location = useLocation();
+  const { isOpen, onToggle, onClose } = useDisclosure();
+
+  useEffect(() => {
+    onClose();
+  }, [location, onClose]);
 
   return (
     <>
