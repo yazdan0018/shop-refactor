@@ -4,10 +4,6 @@ const NAVBAR_LINKS = [
     name: 'home',
   },
   {
-    path: '/login',
-    name: 'login',
-  },
-  {
     path: '/products',
     name: 'products',
   },

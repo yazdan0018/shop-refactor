@@ -5,6 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Providers from './components/Providers';
 import { BrowserRouter } from 'react-router-dom';
+import storeCreator from './redux/store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+
+const { store, persistor } = storeCreator();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root'),
@@ -12,11 +17,15 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Providers>
-        <App />
-      </Providers>
-    </BrowserRouter>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <Providers>
+            <App />
+          </Providers>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
 );
 
