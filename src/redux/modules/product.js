@@ -4,9 +4,9 @@ import { put } from 'redux-saga/effects';
 import { createSlice } from '@reduxjs/toolkit';
 import { AsyncModuleState } from '../types';
 import service from '../../utils/api';
-import { tokenAdd } from './token';
 
-const LOGIN_URL = 'https://reqres.in/api/login';
+const PRODUCT_URL = 'https://fakestoreapi.com/products/';
+
 const initialState: AsyncModuleState = {
   loading: false,
   loaded: false,
@@ -14,20 +14,20 @@ const initialState: AsyncModuleState = {
   error: null,
 };
 
-const loginSlice = createSlice({
-  name: 'login',
+const productSlice = createSlice({
+  name: 'product',
   initialState,
   reducers: {
-    login: () => ({
+    loadProduct: () => ({
       ...initialState,
       loading: true,
     }),
-    loginSuccess: (state, action) => ({
+    loadProductSuccess: (state, action) => ({
       ...initialState,
       loaded: true,
       data: action.payload,
     }),
-    loginFailure: (state, action) => ({
+    loadProductFailure: (state, action) => ({
       ...initialState,
       loaded: true,
       error: action.payload,
@@ -35,24 +35,28 @@ const loginSlice = createSlice({
   },
 });
 
-export const { login, loginSuccess, loginFailure } =
-  loginSlice.actions;
+export const {
+  loadProduct,
+  loadProductSuccess,
+  loadProductFailure,
+} = productSlice.actions;
 
-export function* watchLogin(action) {
+export function* watchLoadProduct(action) {
   try {
     const response = yield service({
-      method: 'post',
-      url: LOGIN_URL,
+      method: 'get',
+      url: `${PRODUCT_URL}/${action.payload.id}`,
       data: action.payload,
     });
     if (response.status === 200) {
-      yield put(loginSuccess(response));
-      yield put(tokenAdd(response.data.token));
+      yield put(loadProductSuccess(response.data));
+    } else {
+      throw new Error('No data found');
     }
-    throw new Error(response);
   } catch (e) {
     console.log(e);
-    yield put(loginFailure(e));
+    yield put(loadProductFailure(e));
   }
 }
-export default loginSlice.reducer;
+
+export default productSlice.reducer;

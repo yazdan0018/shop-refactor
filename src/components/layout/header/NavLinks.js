@@ -3,6 +3,7 @@ import { Link, Stack } from '@chakra-ui/react';
 import { NAVBAR_LINKS } from '../../../constants';
 import { Link as RouterLink } from 'react-router-dom';
 import LoginLogoutButton from './LoginLogoutButton';
+import Cart from './Cart';
 
 const NavLinks = () => {
   return (
@@ -23,6 +24,7 @@ const NavLinks = () => {
         </Link>
       ))}
       <LoginLogoutButton />
+      <Cart />
     </Stack>
   );
 };

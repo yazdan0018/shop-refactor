@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { login as loginUser } from '../redux/modules/login';
 import { useForm } from 'react-hook-form';
+import { LAYOUT_CONSTANTS } from '../constants';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const LoginPage = () => {
       maxW={{ base: '100%', md: 'md' }}
       centerContent
       pt={10}
+      minH={LAYOUT_CONSTANTS.MIN_HEIGHT}
     >
       <Heading mb={10}>Please login</Heading>
       <VStack spacing={10} w="100%">

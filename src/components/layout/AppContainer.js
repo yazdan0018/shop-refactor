@@ -16,14 +16,7 @@ const AppContainer = ({ children }) => (
     h={`calc(100vh - ${LAYOUT_CONSTANTS.HEADER_HEIGHT})`}
     overflow="auto"
   >
-    <Box
-      w="100%"
-      minH={`calc(100vh - ${
-        2 * LAYOUT_CONSTANTS.HEADER_HEIGHT.split('px')[0]
-      }px)`}
-    >
-      {children}
-    </Box>
+    {children}
     <Footer />
   </Box>
 );

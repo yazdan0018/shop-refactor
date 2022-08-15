@@ -8,7 +8,7 @@ const Footer = () => (
     bg="white"
     borderTop="1px"
     borderColor="black"
-    h={LAYOUT_CONSTANTS.HEADER_HEIGHT}
+    h={LAYOUT_CONSTANTS.SIDEBAR_WIDTH}
   >
     Created by yazdan
   </Box>

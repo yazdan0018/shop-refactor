@@ -4,30 +4,30 @@ import { put } from 'redux-saga/effects';
 import { createSlice } from '@reduxjs/toolkit';
 import { AsyncModuleState } from '../types';
 import service from '../../utils/api';
-import { tokenAdd } from './token';
 
-const LOGIN_URL = 'https://reqres.in/api/login';
+const PRODUCTS_URL = 'https://fakestoreapi.com/products';
+
 const initialState: AsyncModuleState = {
   loading: false,
   loaded: false,
-  data: null,
+  data: [],
   error: null,
 };
 
-const loginSlice = createSlice({
-  name: 'login',
+const productsSlice = createSlice({
+  name: 'products',
   initialState,
   reducers: {
-    login: () => ({
+    loadProducts: () => ({
       ...initialState,
       loading: true,
     }),
-    loginSuccess: (state, action) => ({
+    loadProductsSuccess: (state, action) => ({
       ...initialState,
       loaded: true,
       data: action.payload,
     }),
-    loginFailure: (state, action) => ({
+    loadProductsFailure: (state, action) => ({
       ...initialState,
       loaded: true,
       error: action.payload,
@@ -35,24 +35,28 @@ const loginSlice = createSlice({
   },
 });
 
-export const { login, loginSuccess, loginFailure } =
-  loginSlice.actions;
+export const {
+  loadProducts,
+  loadProductsSuccess,
+  loadProductsFailure,
+} = productsSlice.actions;
 
-export function* watchLogin(action) {
+export function* watchLoadProducts(action) {
   try {
     const response = yield service({
-      method: 'post',
-      url: LOGIN_URL,
+      method: 'get',
+      url: PRODUCTS_URL,
       data: action.payload,
     });
     if (response.status === 200) {
-      yield put(loginSuccess(response));
-      yield put(tokenAdd(response.data.token));
+      yield put(loadProductsSuccess(response.data));
+    } else {
+      throw new Error('No data found');
     }
-    throw new Error(response);
   } catch (e) {
     console.log(e);
-    yield put(loginFailure(e));
+    yield put(loadProductsFailure(e));
   }
 }
-export default loginSlice.reducer;
+
+export default productsSlice.reducer;
